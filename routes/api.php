@@ -2,16 +2,20 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \Illuminate\Support\Facades\Auth;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('guest:sanctum')->get('/hi', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/checktoken', function (Request $request) {
     return response()->json([
-        'message' => 'Usuario y/o contraseña es invalido.',
-        'res' => false
+        'user' => [
+            'email' => Auth::user()->email,
+            'name' => Auth::user()->name
+        ],
+        'res' => true
     ]);
 });
 
