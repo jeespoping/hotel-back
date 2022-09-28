@@ -20,3 +20,11 @@ Route::middleware('auth:sanctum')->get('/checktoken', function (Request $request
 });
 
 Route::post('/login', 'AuthController@login')->middleware('guest:sanctum');
+
+// Rest hotel
+Route::post('/hotel', 'HotelController@store')->middleware('auth:sanctum');
+Route::get('/hotel', 'HotelController@index');
+Route::get('hotel/{id}', 'HotelController@show');
+Route::put('hotel/{id}', 'HotelController@update')->middleware('auth:sanctum');
+Route::delete('hotel/{id}', 'HotelController@delete')->middleware('auth:sanctum');
+
