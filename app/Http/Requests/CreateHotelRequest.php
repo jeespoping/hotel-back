@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class CreateHotelRequest extends FormRequest
 {
@@ -24,11 +27,19 @@ class CreateHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:hotels',
             'address' => 'required',
             'city' => 'required',
             'nit' => 'required|unique:hotels',
             'room' => 'required|integer'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $error = (new ValidationException($validator))->errors();
+        throw new HttpResponseException(
+            response()->json($error, 422)
+        );
     }
 }

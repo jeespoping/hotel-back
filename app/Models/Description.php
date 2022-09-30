@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Hotel;
+use Illuminate\Support\Facades\DB;
 
 class Description extends Model
 {
@@ -17,7 +19,9 @@ class Description extends Model
 
     public function diffValidatedroom($num, $hotel){
         $numH = intval($this->where('hotel_id', $hotel)->sum('amount'));
-        return $num-$numH;
+        $numHo = DB::select("select room from hotels where id = '{$hotel}'");
+        $numHO = intval($numHo[0]->room);
+        return ($numH + $numHO) - $num;
     }
 
     public function validateRoom($accommodation, $type, $hotel){

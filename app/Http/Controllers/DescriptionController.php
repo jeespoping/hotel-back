@@ -18,7 +18,7 @@ class DescriptionController extends Controller
         $diff = $description->diffValidatedroom($request->amount,$request->hotel_id);
         $validateH = $description->validateRoom($request->accommodation, $request->type, $request->hotel_id);
         $validatA = $description->validateaccommodation($request->accommodation, $request->type);
-
+        
         if($diff < 0){
             return response()->json([
                 'message' => 'El numero de habitaciones es superior al permitido',
