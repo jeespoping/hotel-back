@@ -12,6 +12,6 @@ class Hotel extends Model
     protected $fillable = ['name', 'address', 'city', 'nit', 'room'];
 
     public function descriptions(){
-        return $this->belongsToMany(Description::class);
+        return $this->hasMany(Description::class);
     }
 }

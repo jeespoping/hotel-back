@@ -54,7 +54,7 @@ class HotelController extends Controller
 
     public function show($id){
 
-        $data = Hotel::where('id', $id)->first();
+        $data = Hotel::where('id', $id)->firstOrFail();
 
         if ($data){
             return response()->json([
@@ -68,6 +68,14 @@ class HotelController extends Controller
                 'res' => false
             ]);
         }
+    }
+
+    public function rooms($id){
+        $hotel = Hotel::where('id', $id)->first();
+
+        $rooms = $hotel->descriptions()->get();
+
+        return $rooms;
     }
 
     public function update(Request $request, $id){

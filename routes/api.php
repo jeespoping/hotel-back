@@ -28,5 +28,7 @@ Route::get('hotel/{id}', 'HotelController@show');
 Route::put('hotel/{id}', 'HotelController@update')->middleware('auth:sanctum');
 Route::delete('hotel/{id}', 'HotelController@delete')->middleware('auth:sanctum');
 
+Route::get('/hotel/room/{id}', 'HotelController@rooms');
+
 // Rest habitacion
 Route::post('/habitacion', 'DescriptionController@store')->middleware('auth:sanctum');
