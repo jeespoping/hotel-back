@@ -52,4 +52,21 @@ class DescriptionController extends Controller
 
     }
 
+    public function delete($id){
+        $data = Description::where('id', $id)->delete();
+
+        if ($data){
+            return response()->json([
+                'message' => 'Se eliminaron los datos exitosamente',
+                'data' => $data,
+                'res' => true
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No se pudieron eliminar los datos',
+                'res' => false
+            ]);
+        }
+    }
+
 }
