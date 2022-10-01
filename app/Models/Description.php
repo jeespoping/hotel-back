@@ -21,7 +21,7 @@ class Description extends Model
         $numH = intval($this->where('hotel_id', $hotel)->sum('amount'));
         $numHo = DB::select("select room from hotels where id = '{$hotel}'");
         $numHO = intval($numHo[0]->room);
-        return ($numH + $numHO) - $num;
+        return ["diff" => ($numH + $numHO) - $num, "disp" => ($numH - $numHo[0]->room)];
     }
 
     public function validateRoom($accommodation, $type, $hotel){
