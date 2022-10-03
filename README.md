@@ -1,6 +1,8 @@
 # Guía para instalar el proyecto
 ## Version php ^8.0
+Desplegado en AWS, http://3.17.14.20/
 
+## Instalación
 1. Descarga el repositorio
 2. Descromprime la carpeta dentro del directorio donde pueda correr php
 3. Renombra la carpeta (Opcional) 
