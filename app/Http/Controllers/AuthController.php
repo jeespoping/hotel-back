@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -13,14 +14,19 @@ class AuthController extends Controller
      */
     public function login(Request $request){
 
-        if (!Auth::attempt($request->only('email', 'password'))){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)){
             return response()->json([
                 'message' => 'Usuario y/o contraseña es invalido.',
                 'res' => false
             ], 401);
         }
-
-        $user = User::where('email', $request->email)->first();
 
         $user->tokens()->delete();
         $token = $user->createToken('auth_token')->plainTextToken;
